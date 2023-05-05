@@ -5,7 +5,13 @@
 @layer base {
   body {
     color: snow;
+    background-color: #202124
   }
+
+  main {
+    @apply flex flex-col gray--bg w-full;
+  }
+
 }
 
 @layer components {

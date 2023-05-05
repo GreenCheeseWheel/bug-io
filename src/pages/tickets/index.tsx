@@ -5,10 +5,10 @@ export default function Home()
 {   
 
     return (
-        <main className="flex flex-col gray--bg w-full">
+        <main>
             <Navbar />
 
-            <section className="min-h-[120vh] grow px-3">
+            <section className="h-full grow px-3">
                 <TicketSection />
             </section>
 
