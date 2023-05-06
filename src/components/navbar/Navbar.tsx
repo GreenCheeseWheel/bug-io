@@ -2,11 +2,16 @@ import {MdAutoAwesomeMosaic} from "react-icons/md"
 import {BsTicketPerforatedFill} from "react-icons/bs"
 import {AiFillFileText} from "react-icons/ai"
 import Link from "next/link";
+import { store } from "@/pages";
+import {useEffect} from "react"
 
 export default function Sidebar()
 {
+    useEffect(() => {
+        console.warn(store.getState());
+    }, [])
 
-    // Later <li> will be a nextjs Link towards the pages I set up
+    // data.user. name | email | image
     return(
         <nav className="w-full py-1 darkgray--bg">
             <ul className="flex flex-row justify-center items-center gap-5 w-full h-full">

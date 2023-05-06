@@ -1,6 +1,8 @@
 import {useEffect} from "react"
 import ProjectDetail from "./ProjectDetail";
 
+const mongodb_uri = process.env.MONGODB_URI;
+
 interface IProjectList
 {
     id:number,
@@ -40,4 +42,11 @@ export default function ProjectList()
 
         </section>
     )
+}
+
+export async function getServerSideProps()
+{
+    
+
+
 }
