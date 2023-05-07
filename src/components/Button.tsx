@@ -13,7 +13,6 @@ interface IButtonProps {
 export default function Button(props:IButtonProps)
 {
     const {btnText, bgColor, color, fontSize, width, height, onClick} = props;
-    // w-[${width}] h-[${height}]  bg-[${bgColor}] text-[${color}] text-${fontSize}
     return(
         <button onClick={onClick}
             style={{width: width, height: height, backgroundColor: bgColor, color: color, fontSize: fontSize}} 

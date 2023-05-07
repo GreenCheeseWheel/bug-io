@@ -59,7 +59,7 @@ export const getServerSideProps = async (ctx:NextPageContext) =>
     }
   }
 
-  const addRes = await fetch("http://localhost:3000/api/mongo/getProjectByID");
+  const addRes = await fetch("http://localhost:3000/api/mongo/getProjectList");
   const addResJson = await addRes.json();
 
 

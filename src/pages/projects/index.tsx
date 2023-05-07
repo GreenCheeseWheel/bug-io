@@ -3,7 +3,6 @@ import Button from "@/components/Button"
 import ProjectList from "@/components/projects/ProjectList"
 
 import Link from "next/link"
-import { useEffect } from "react"
 import { store } from "../index"
 
 export default function Home()

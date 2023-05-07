@@ -1,6 +1,7 @@
 import Button from "./Button"
 import {useState, FormEvent} from "react"
 import { useRouter } from "next/router";
+import { store } from "@/pages";
 
 
 
@@ -8,16 +9,41 @@ export default function Modal()
 {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const userName = store.getState().userReducer.name;
     const router = useRouter();
 
     const sendData = async (event:FormEvent | null) => {
+        const date = new Date();
+
         if(event)
         {   
             event.preventDefault();
+                        
+            const res = await fetch("http://localhost:3000/api/mongo/addProject", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json",
+                },
+
+                body: JSON.stringify(
+                    {
+                        code_str: date.toDateString(), 
+                        proj_title: title, 
+                        proj_description: description,
+                        proj_creator: userName,
+                        proj_participants: [userName]
+                    })
             
-            // Create project fetch() code here
-            // I still need to create that api in the
-            // pages/api/mongo directory
+            })
+            .catch(err => { console.error(err); throw new Error(err); });
+
+            if(res)
+            {
+                // This goes to root, forcing a redux update
+                // DO NOT CHANGE
+                router.push("/");
+            }
 
         }
     }
