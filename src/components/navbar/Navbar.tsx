@@ -7,10 +7,7 @@ import {useEffect} from "react"
 
 export default function Sidebar()
 {
-    useEffect(() => {
-        console.warn(store.getState());
-    }, [])
-
+    
     // data.user. name | email | image
     return(
         <nav className="w-full py-1 darkgray--bg">

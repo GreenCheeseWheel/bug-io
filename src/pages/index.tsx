@@ -2,20 +2,33 @@ import Dashboard from "@/components/dashboard/Dashboard";
 import Navbar from "@/components/navbar/Navbar";
 
 import {configureStore, combineReducers} from "@reduxjs/toolkit";
-import { Session } from "next-auth";
 import {SessionProvider, getSession} from "next-auth/react"
-import userReducer from "@/slices/user_slice";
-import ticketReducer from "@/slices/tracker_slice"
-import { redirect } from "next/dist/server/api-utils";
+import userReducer, {signinUser} from "@/slices/user_slice";
+import ticketReducer from "@/slices/tickets_slice"
+import projectsArrReducer, {setProjArr} from "@/slices/projects_slice"
+
 import { NextPageContext } from "next";
+import { useEffect } from "react";
 
 const store = configureStore(
   {
-    reducer: combineReducers({userReducer, ticketReducer}),
+    reducer: combineReducers({userReducer, ticketReducer, projectsArrReducer}),
   }
 );
 
-export default function Home() {
+
+export default function Home(propData:any) {
+  
+  var data = propData;
+
+
+  useEffect(() => {
+    
+    store.dispatch(signinUser(propData.userData));
+    store.dispatch(setProjArr(data.postingData));
+
+  }, [propData]);
+
 
   return (
     <main>
@@ -33,6 +46,7 @@ export default function Home() {
   
 }
 
+
 export const getServerSideProps = async (ctx:NextPageContext) =>
 {
 
@@ -45,9 +59,14 @@ export const getServerSideProps = async (ctx:NextPageContext) =>
     }
   }
 
+  const addRes = await fetch("http://localhost:3000/api/mongo/getProjectByID");
+  const addResJson = await addRes.json();
+
+
   return {
-    props: { data: sess.user }
+    props: { userData: sess.user, postingData: addResJson }
   }
+
 }
 
 export {store};

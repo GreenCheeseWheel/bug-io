@@ -3,7 +3,7 @@ import { MouseEvent, useEffect } from "react"
 
 interface IProjectDetail
 {
-    id:number,
+    id:string,
     name:string,
     creator:string,
     participants:string[],
@@ -13,28 +13,12 @@ interface IProjectDetail
 
 export default function ProjectDetail( {id, name, creator, participants, description}:IProjectDetail )
 {
-    var currUser:string;
-    const router = useRouter();
-
-    useEffect(() => {
-        currUser = "Me";
-    }, [])
-
-    const authorizeAccess = (event:MouseEvent) => {
-        if(participants.indexOf(currUser) < 0)
-        {
-            router.push("/projects/project/" + id);
-        }
-        else {
-            alert("You are not allowed to access this project");
-        }
-    }
 
     return(
         <>
             <div key={id} className="flex flex-row justify-between items-center px-[5px] md:px-[40px] w-full gray--bg">
                     <span className="text-[#606164] text-sm">{id}</span>
-                    <span onClick={authorizeAccess} className="md:text-xl md:font-bold text-md font-semibold">{name}</span>
+                    <span className="md:text-xl md:font-bold text-md font-semibold">{name}</span>
                     <span className="text-[#606164] text-sm">Created by {creator}</span>
             </div>
 

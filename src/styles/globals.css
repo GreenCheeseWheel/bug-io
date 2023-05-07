@@ -5,11 +5,15 @@
 @layer base {
   body {
     color: snow;
-    background-color: #202124
+    background-color: #202124;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height:auto;
   }
 
   main {
-    @apply flex flex-col gray--bg w-full;
+    @apply flex flex-col gray--bg h-full w-full;
   }
 
 }
@@ -43,18 +47,6 @@
     @apply flex flex-col items-center text-white cursor-pointer font-semibold hover:gray--bg transition rounded-[7px] p-1;
   }
 
-  .svg--login {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    z-index: -1;
-    width: 100%;
-    pointer-events: none;
-
-  }
-
   .modal--wrap {
     display: flex;
     flex-direction: column;
@@ -66,9 +58,7 @@
     margin-top: 5rem;
 
     background-color: #202124a9;
-    backdrop-filter: blur(7px);
-    
-    
+    backdrop-filter: blur(10px); 
 
   }
 
