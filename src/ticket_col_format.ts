@@ -4,7 +4,7 @@ enum ticket_status
     triaged,
     accepted,
     pending,
-    resolver,
+    resolved,
     unresolved 
 }
 

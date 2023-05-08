@@ -1,3 +1,4 @@
+import TicketList from "@/components/dashboard/TicketList/TicketList";
 import { useRouter } from "next/router";
 
 
@@ -9,6 +10,11 @@ export default function Project()
     const {id} = router.query;
     
 
-    return <p>Project id: {id}</p>
+    return (
+        <main>
+
+            <TicketList />
+        </main>
+    )
 
 }

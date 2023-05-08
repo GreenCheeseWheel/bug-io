@@ -13,7 +13,7 @@ export default function Modal()
     const router = useRouter();
 
     const sendData = async (event:FormEvent | null) => {
-        const date = new Date();
+        const date = new Date().getTime();
 
         if(event)
         {   
@@ -28,7 +28,7 @@ export default function Modal()
 
                 body: JSON.stringify(
                     {
-                        code_str: date.toDateString(), 
+                        code_str: date.toString(), 
                         proj_title: title, 
                         proj_description: description,
                         proj_creator: userName,
@@ -38,7 +38,7 @@ export default function Modal()
             })
             .catch(err => { console.error(err); throw new Error(err); });
 
-            if(res)
+            if(res.ok)
             {
                 // This goes to root, forcing a redux update
                 // DO NOT CHANGE

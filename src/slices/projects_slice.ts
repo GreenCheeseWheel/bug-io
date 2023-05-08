@@ -1,10 +1,27 @@
-import { project_schema } from "@/project_col_format"
+import { ticket_schema } from "@/ticket_col_format";
 import { createSlice } from "@reduxjs/toolkit"
 
 // This keeps the array of projects in memory
 
 const initialState = {
-    projectArr: [ {proj_id: "0", proj_title:"", proj_description:"", proj_creator:"", proj_participants:[""],} , ]
+    projectArr: [ 
+        {proj_id: "0", 
+        proj_title:"", 
+        proj_description:"", 
+        proj_creator:"", 
+        proj_participants:[""],
+        proj_tickets: [
+            {
+                ticket_id: "0", 
+                ticket_title: "",
+                ticket_description: "",
+                ticket_status: "",
+            },
+        
+        ]
+    } , 
+        
+    ]
 }
 
 const projectArrSlice = createSlice(
