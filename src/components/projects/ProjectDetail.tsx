@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link"
 import { MouseEvent, useEffect } from "react"
 
 interface IProjectDetail
@@ -18,7 +19,11 @@ export default function ProjectDetail( {id, name, creator, participants, descrip
         <>
             <div key={id} className="flex flex-row justify-between items-center px-[5px] md:px-[40px] w-full gray--bg">
                     <span className="text-[#606164] text-sm">{id}</span>
-                    <span className="md:text-xl md:font-bold text-md font-semibold">{name}</span>
+
+                    <Link href={`/projects/project/` + id}>
+                        <span className="md:text-xl md:font-bold text-md font-semibold">{name}</span>
+                    </Link>
+                    
                     <span className="text-[#606164] text-sm">Created by {creator}</span>
             </div>
 

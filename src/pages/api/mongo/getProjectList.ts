@@ -13,7 +13,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse<an
         const database = client.db("projects");
 
         const projectSet = await database.collection( mongoCollections.projects ).find({}).limit(10).toArray();
-        
+
         res.status(200).json(projectSet);
     }
     catch(err)

@@ -7,8 +7,8 @@ import {useEffect} from "react"
 
 export default function Sidebar()
 {
+
     
-    // data.user. name | email | image
     return(
         <nav className="w-full py-1 darkgray--bg">
             <ul className="flex flex-row justify-center items-center gap-5 w-full h-full">

@@ -1,7 +1,6 @@
 import { mongoPromise } from "../../../lib/mongodb";
 import { mongoCollections } from "../../../lib/mongo_collections";
 import { NextApiRequest, NextApiResponse } from "next";
-import { ObjectId } from "mongodb";
 
 
 function stringToHash( str:string )
@@ -29,11 +28,11 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse)
 
         const {code_str, proj_title, proj_description, proj_creator, proj_participants} = req.body;
         
-        const objID = stringToHash(code_str);
+        const objID = stringToHash(code_str); // THis is different from mongoDB ID generation
 
         const project = database.collection(mongoCollections.projects).insertOne( 
             {
-                _id: new ObjectId(objID),
+                proj_id: objID,
                 proj_title: proj_title,
                 proj_description: proj_description,
                 proj_creator: proj_creator,

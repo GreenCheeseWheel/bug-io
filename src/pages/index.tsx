@@ -24,7 +24,8 @@ export default function Home(propData:any) {
 
   useEffect(() => {
     
-    store.dispatch(signinUser(propData.userData));
+    var {user_name, user_email,user_role} = propData.userData;
+    store.dispatch(signinUser( {name: user_name, email: user_email ,role: user_role} ));
     store.dispatch(setProjArr(data.postingData));
 
   }, [propData]);
