@@ -21,6 +21,9 @@ export default function Project()
     const [ticketTitle, setTicketTitle] = useState("");
     const [ticketDescription, setTicketDescription] = useState("");
 
+    // Ticket id for deletion
+    const [ticketId, setTicketId] = useState(-1);
+
     const validateField = (ev:ChangeEvent<HTMLInputElement>) => {
         
         var targetVal = 0;
@@ -34,11 +37,12 @@ export default function Project()
 
     }; 
 
+
     const handleFormSubmit = async (ev:FormEvent) =>
     {
         ev.preventDefault();
-        const currProjId = 0;
-        
+        const date = new Date().getTime();
+
         if(!ticketTitle.trim() || !ticketDescription.trim() )
         {    
             alert("An error has ocurred. Check that ticke data is not empty");
@@ -54,7 +58,8 @@ export default function Project()
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify( {
-                    currProjId,
+                    code_str: date.toString(),
+                    id,
                     ticketTitle,
                     ticketDescription,
                 } )
@@ -71,7 +76,37 @@ export default function Project()
         
         router.back();
 
+    }
 
+    const handleDeleteProject = async () => {
+
+        const response = await fetch("http://localhost:3000/api/mongo/deleteProjectByID?id=" + id);
+        if(response.ok)
+        {
+            router.back();
+        }        
+
+    }
+
+    const handleDeleteTicket = async (ev:FormEvent) => {
+        ev.preventDefault();
+
+
+
+        const response = await fetch("http://localhost:3000/api/mongo/tickets/deleteTicket",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                proj_id: id,
+                ticket_id: ticketId,
+            })
+
+        });
+
+        router.push("/");
 
     }
     
@@ -106,8 +141,8 @@ export default function Project()
 
             </section>
 
-            <section className="w-full px-3 py-4">                
-                <form onSubmit={ handleFormSubmit } className="flex flex-col gap-2 w-[50%]  md:w-[33%]">
+            <section className="flex flex-row justify-between w-full gap-1 px-3 py-4">                
+                <form onSubmit={ handleFormSubmit } className="flex flex-col gap-2 w-[45%]  md:w-[33%]">
                     <input 
                         type="text"
                         placeholder="Ticket title"
@@ -129,9 +164,34 @@ export default function Project()
                     <Button bgColor="orange" btnText="Add ticket" width="auto" height="auto" />
                 </form>
 
+                <form onSubmit={handleDeleteTicket} className="flex flex-col w-[45%] md:w-[33%] ">
+                    <input 
+                        type="number" 
+                        placeholder="Ticket ID"
+                        className="text-black outline-0 "
+                        onChange={(ev) => {setTicketId(parseInt(ev.target.value))}}
+                        />
+
+                    <Button  btnText="Delete ticket" width="auto" height="auto"/>
+                </form>
+
+
+
             </section>
 
             <TicketList ticketNum={numTicketsShown} />
+
+            <section className="w-full py-3 flex flex-row justify-start">
+                
+                <Button 
+                    btnText="Delete project" 
+                    bgColor="red" 
+                    width="auto" 
+                    height="auto" 
+                    onClick={handleDeleteProject}
+                    />
+
+            </section>
         </main>
     )
 

@@ -37,9 +37,19 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse)
                 proj_description: proj_description,
                 proj_creator: proj_creator,
                 proj_participants: [proj_participants],
+                proj_tickets:[
+                    {
+                        ticket_id: "0",
+                        ticket_title: "Default creation ticket",
+                        ticket_description: "...",
+                        ticket_status: "4",
+                    }
+                ]
 
             }
          );
+
+         
          
         res.status(200).json(project);
     } 

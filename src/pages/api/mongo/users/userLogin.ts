@@ -23,7 +23,6 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse<an
     }
     catch(err)
     {
-        console.error(err);
         throw new Error("" + err);
     }
 

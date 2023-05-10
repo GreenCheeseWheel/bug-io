@@ -6,18 +6,25 @@ import Ticket from "../Ticket";
 
 export default function TicketCounter()
 {   
-    const [newTickets, setNewTickets] = useState(0);
-    const [triagedTickets, setTriagedTickets] = useState(0);
-    const [resolvedTickets, setResolvedTickets] = useState(0);
-    const [unresolvedTickets, setUnresolvedTickets] = useState(0);
+    const [newTickets, setNewTickets] = useState<number>(0);
+    const [triagedTickets, setTriagedTickets] = useState<number>(0);
+    const [resolvedTickets, setResolvedTickets] = useState<number>(0);
+    const [unresolvedTickets, setUnresolvedTickets] = useState<number>(0);
+
+    const [reducer, setReducer] = useState(store.getState().ticketReducer);
+
+    store.subscribe(() => {
+        setReducer(store.getState().ticketReducer);
+    });
 
     useEffect(() => {
-        const reducer = store.getState().ticketReducer;
         setNewTickets(reducer.new_tickets);
         setTriagedTickets(reducer.triaged_tickets);
         setResolvedTickets(reducer.resolved_tickets);
         setUnresolvedTickets(reducer.unresolved_tickets);
-    }, []);
+
+        console.log(reducer);
+    }, [reducer]);
 
 
     return(

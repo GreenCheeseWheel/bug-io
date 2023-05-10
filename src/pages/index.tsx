@@ -8,7 +8,8 @@ import ticketReducer, {updateTickets} from "@/slices/tickets_slice"
 import projectsArrReducer, {setProjArr} from "@/slices/projects_slice"
 
 import { NextPageContext } from "next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const store = configureStore(
   {
@@ -19,7 +20,7 @@ const store = configureStore(
 export default function Home(propData:any) {
   
   var data = propData;
-
+  const router = useRouter();
 
   useEffect(() => {
     
@@ -30,16 +31,12 @@ export default function Home(propData:any) {
       arrTickets = arrTickets.concat(proj.proj_tickets);  
     });
 
-    store.dispatch(signinUser( {name: user_name, email: user_email ,role: user_role} ));
+    store.dispatch(signinUser( {name: user_name, email: user_email ,role: user_role} ) );
     store.dispatch(setProjArr(data.projData));
     store.dispatch(updateTickets(arrTickets));
-    
 
 
-
-    
-
-  }, [propData]);
+  }, []);
 
 
   return (
@@ -54,7 +51,11 @@ export default function Home(propData:any) {
   
 }
 
+function componentDidUpdate(prevProps:any, prevState:any)
+{ 
+  console.log("Update!");
 
+}
 
 
 export const getServerSideProps = async (ctx:NextPageContext) =>

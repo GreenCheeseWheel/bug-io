@@ -3,7 +3,7 @@ import TicketCounter from "./TicketCounter/TicketCounter";
 import TicketGraph from "./TicketGraphs/TicketGraph";
 import TicketList from "./TicketList/TicketList";
 
-export default function Dashboard()
+export default function Dashboard( )
 {
 
     return(

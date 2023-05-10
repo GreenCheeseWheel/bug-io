@@ -14,8 +14,17 @@ export default function TicketGraph()
     const[resolvedTickets, setResolvedTickets] = useState(0);
     const[unresolvedTickets, setUnresolvedTickets] = useState(0);
 
+    // This logic using the reducer
+    // var is made to cause the proper rendering when the store is updated
+    // Else screen will be all empty!
+    var reducer = store.getState().ticketReducer;
+
+    store.subscribe(() => {
+        reducer = store.getState().ticketReducer;
+    });
+
     useEffect(() => {
-        const reducer = store.getState().ticketReducer;
+        
 
         setTotalTickets(reducer.ticket_arr.length);
         setNewTickets(reducer.new_tickets);
@@ -25,7 +34,7 @@ export default function TicketGraph()
         setResolvedTickets(reducer.resolved_tickets);
         setUnresolvedTickets(reducer.unresolved_tickets);
 
-    }, []);
+    }, [reducer]);
 
     return (
         <article className="flex flex-row justify-around items-center h-[50vh] darkgray--bg">

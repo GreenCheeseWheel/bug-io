@@ -1,25 +1,29 @@
 import TicketInfo from "./TicketInfo";
 import { ticketColorCode } from "@/ticket-code";
 import { store } from "@/pages";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ticket_schema } from "@/ticket_col_format";
 
 export default function TicketList( {ticketNum}:{ticketNum:number} )
 {
     const [ticketData, setTicketData] = useState([{ticket_id: "", ticket_title: "", ticket_description: "", ticket_status: 0}] );
-
+    const [reducer, setReducer] = useState( store.getState().projectsArrReducer );  
     
+
+    store.subscribe(() => {
+        setReducer(store.getState().projectsArrReducer);
+    })
 
     useEffect(() => {
         var ticketArr:any = [];
-        store.getState().projectsArrReducer.projectArr.forEach(proj => 
+        reducer.projectArr.forEach(proj => 
             {
                 ticketArr = ticketArr.concat(proj.proj_tickets);
 
             })
 
         setTicketData( ticketArr.slice(0, ticketNum) );
-    }, [])
+    }, [reducer, ticketNum])
 
 
     return(

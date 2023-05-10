@@ -9,11 +9,13 @@ export default async function handler( req:NextApiRequest, res:NextApiResponse<a
     {
         const client = await mongoPromise;
         const database = client.db("projects");
-        const id = "" + req.query; // Convert to a simple string
+        const id = req.query.id as string; // Convert to a simple string
+
+        console.log(id);
 
         const deleteResponse = database.collection(mongoCollections.projects).deleteOne(
             {
-                _id: new ObjectId(id)
+                proj_id: id,
             }
         );
         
