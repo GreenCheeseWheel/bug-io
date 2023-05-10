@@ -6,28 +6,36 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req:NextApiRequest , res:NextApiResponse<any>)
 {
+
     try
     {
         const client = await mongoPromise;
         const database = client.db("projects");
-        const {project_id, ticket_title, ticket_description, ticket_status} = req.body;
+        const {currProjId, ticketTitle, ticketDescription } = req.body;
 
-        if(parseInt(ticket_status) > 5 || parseInt(ticket_status) < 0)
-        {
-            throw new Error("Invalid status code error | Status code must a number 0 and 5");
-        }
-
-        database.collection(mongoCollections.tickets).insertOne(
+        console.log(ticketTitle);
+        const updateRes = await database.collection(mongoCollections.projects).updateOne(
             {
-                project_id,
-                ticket_title, 
-                ticket_description, 
-                ticket_status
-
+                proj_id: "0",
+            },
+            {
+                $addToSet: {
+                    proj_tickets: {
+                        
+                            ticket_id: "3", 
+                            ticket_title: ticketTitle ,
+                            ticket_description: ticketDescription,
+                            ticket_status: "0"
+                        
+                    }
+                
+                }
             }
+            
         )
 
-
+        res.status(200).json( updateRes );
+        
     }
     catch(err)
     {

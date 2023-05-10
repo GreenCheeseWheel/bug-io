@@ -4,9 +4,11 @@ import { store } from "@/pages";
 import { useEffect, useState } from "react";
 import { ticket_schema } from "@/ticket_col_format";
 
-export default function TicketList()
+export default function TicketList( {ticketNum}:{ticketNum:number} )
 {
     const [ticketData, setTicketData] = useState([{ticket_id: "", ticket_title: "", ticket_description: "", ticket_status: 0}] );
+
+    
 
     useEffect(() => {
         var ticketArr:any = [];
@@ -16,21 +18,24 @@ export default function TicketList()
 
             })
 
-        setTicketData(ticketArr);
+        setTicketData( ticketArr.slice(0, ticketNum) );
     }, [])
 
 
     return(
         <section className="flex flex-col py-2 px-2 darkgray--bg">
             <section className="px-3 py-2 gray--bg rounded-[8px]">
-                <p className="font-bold text-xl mb-2">Latest Five Tickets</p>
+                <p className="font-bold text-xl mb-2">Latest {ticketNum} Tickets</p>
                 
                 {ticketData.map(ticket => 
+                   
                     <TicketInfo 
                     key={ticket.ticket_title} 
                     id = {ticket.ticket_id}
                     title={ticket.ticket_title} 
+                    description={ ticket.ticket_description}
                     status={ticket.ticket_status}
+
                     
                     />)}
 

@@ -16,7 +16,6 @@ const store = configureStore(
   }
 );
 
-
 export default function Home(propData:any) {
   
   var data = propData;
@@ -27,9 +26,17 @@ export default function Home(propData:any) {
     var {user_name, user_email,user_role} = propData.userData;
     var arrTickets:any = [];
 
-    console.error(data.projData);
+    data.projData.forEach((proj: { proj_tickets:any }) => {
+      arrTickets = arrTickets.concat(proj.proj_tickets);  
+    });
+
     store.dispatch(signinUser( {name: user_name, email: user_email ,role: user_role} ));
     store.dispatch(setProjArr(data.projData));
+    store.dispatch(updateTickets(arrTickets));
+    
+
+
+
     
 
   }, [propData]);
@@ -48,10 +55,13 @@ export default function Home(propData:any) {
 }
 
 
+
+
 export const getServerSideProps = async (ctx:NextPageContext) =>
 {
 
   const sess = await getSession(ctx);
+  const baseUrl = "" +process.env.NEXTAUTH_URL;
 
   if(!sess)
   {
@@ -60,7 +70,7 @@ export const getServerSideProps = async (ctx:NextPageContext) =>
     }
   }
 
-  const projectRes = await fetch("http://localhost:3000/api/mongo/getProjectList");
+  const projectRes = await fetch( baseUrl + "/api/mongo/getProjectList");
   const projectResJson = await projectRes.json();
 
   return {

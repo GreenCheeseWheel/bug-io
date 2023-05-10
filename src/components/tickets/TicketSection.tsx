@@ -22,7 +22,7 @@ export default function TicketSection()
             </article>
 
             <article className="w-full h-auto">
-                <TicketList />
+                <TicketList ticketNum={50} />
             </article>
         </section>
     );

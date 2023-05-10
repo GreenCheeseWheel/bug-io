@@ -23,7 +23,7 @@ export default function Dashboard()
             </article>
             
             <article className="w-full h-auto">
-                <TicketList />
+                <TicketList ticketNum={5}/>
             </article>
         
         

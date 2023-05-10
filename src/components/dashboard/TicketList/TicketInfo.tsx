@@ -5,13 +5,14 @@ import ticket_status from "@/ticket_col_format"
 interface ITicketInfo {
     title:string,
     status:number,
+    description:string,
     id:string,
 }
 
 
 
 
-export default function TicketInfo({title, status, id}:ITicketInfo)
+export default function TicketInfo({title, status, description, id}:ITicketInfo)
 {
     const [ticketColor, setTicketColor] = useState("");
     const [ticketStatus, setTicketStatus] = useState("");
@@ -61,6 +62,7 @@ export default function TicketInfo({title, status, id}:ITicketInfo)
                 <div style={{backgroundColor: ticketColor}} className="rounded-full p-1 text-sm text-black"> {ticketStatus} </div>
             </div>
             <span className="font-semibold text-sm">{id}</span>
+            <p> {description} </p>
         </article>
     )
 

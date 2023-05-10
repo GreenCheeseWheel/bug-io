@@ -1,3 +1,4 @@
+import { ticketColorCode } from "@/ticket-code";
 import { useEffect, useRef } from "react";
 import { ResponsiveContainer, Bar, CartesianGrid, XAxis, YAxis, Tooltip,BarChart } from "recharts";
 // This is the chart's data structure/types
@@ -10,30 +11,28 @@ interface IDataStruct {
     unresolved: number,
 }
 
-export default function TicketTypeGraph()
+export default function TicketTypeGraph({ new: newTickets, triaged, accepted, pending, resolved, unresolved }:IDataStruct )
 {
     var canvasElement = useRef<HTMLCanvasElement>(null);
 
-    var data:IDataStruct = {
-        new: 2,
-        triaged: 3,
-        accepted: 1,
-        pending: 2,
-        resolved: 1,
-        unresolved: 2
+    var data = {
+        newTickets,
+        triaged,
+        accepted,
+        pending,
+        resolved,
+        unresolved,
+        
     };
 
     const dataArr = [
-        {name: "new", new_amount: data.new},
+        {name: "new", new_amount: data.newTickets},
         {name: "triaged", triaged_amount: data.triaged},
         {name: "accepted", accepted_amount: data.accepted},
         {name: "pending", pending_amount: data.pending},
         {name: "resolved", resolved_amount: data.resolved},
         {name: "unresolved", unresolved_amount: data.unresolved},
     ]
-
-    
-    const barColor = ["#0000ff", "#de3163", "#de3163", "#ff10f0", "#00ff00", "#ff0000"]
    
 
     return (
@@ -54,12 +53,12 @@ export default function TicketTypeGraph()
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="new_amount" fill={barColor[0]}/>
-                    <Bar dataKey="triaged_amount" fill={barColor[1]}/>
-                    <Bar dataKey="accepted_amount" fill={barColor[2]}/>
-                    <Bar dataKey="pending_amount" fill={barColor[3]}/>
-                    <Bar dataKey="resolved_amount" fill={barColor[4]}/>
-                    <Bar dataKey="unresolved_amount" fill={barColor[5]}/>
+                    <Bar dataKey="new_amount" fill={ticketColorCode.new}/>
+                    <Bar dataKey="triaged_amount" fill={ ticketColorCode.triaged }/>
+                    <Bar dataKey="accepted_amount" fill={ ticketColorCode.accepted }/>
+                    <Bar dataKey="pending_amount" fill={ticketColorCode.pending }/>
+                    <Bar dataKey="resolved_amount" fill={ticketColorCode.resolved }/>
+                    <Bar dataKey="unresolved_amount" fill={ticketColorCode.unresolved }/>
 
                 </BarChart>
             </ResponsiveContainer>

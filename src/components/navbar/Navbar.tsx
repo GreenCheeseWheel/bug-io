@@ -1,13 +1,12 @@
-import {MdAutoAwesomeMosaic} from "react-icons/md"
+import {MdAutoAwesomeMosaic, MdHowToReg} from "react-icons/md"
 import {BsTicketPerforatedFill} from "react-icons/bs"
 import {AiFillFileText} from "react-icons/ai"
 import Link from "next/link";
 import { store } from "@/pages";
 import {useEffect} from "react"
 
-export default function Sidebar()
+export default function Navbar()
 {
-
 
     return(
         <nav className="w-full py-1 darkgray--bg">

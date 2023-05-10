@@ -13,12 +13,14 @@ export const authOptions:AuthOptions = {
           username: {
             label: "Username",
             type: "text",
-            placeholder: "normal_user",
+            placeholder: "GreenCheeseWheel",
           },
           password: {
             label: "Password",
             type: "password",
+            placeholder: "admin",
           },
+
         },
 
         async authorize(credentials, req)
@@ -58,6 +60,8 @@ export const authOptions:AuthOptions = {
 
     )
   ],
+
+  
 
   callbacks: {
     

@@ -1,10 +1,11 @@
+import { ticketColorCode } from "@/ticket-code";
 import { useEffect, useRef, useState } from "react"
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts"
 
 interface ITicketAmount {
     total:number,
 
-    new:number,
+    newTickets:number,
     triaged: number,
     accepted: number,
     pending: number,
@@ -23,22 +24,22 @@ interface ICustomLabel {
 
 }
 
-export default function TicketAmountGraph()
+export default function TicketAmountGraph( {total, newTickets, triaged, accepted, pending, resolved, unresolved}:ITicketAmount )
 {
     const [graphRadius, setGraphRadius] = useState(50);
 
-    var data:ITicketAmount = {
-        total: 50,
-        new: 3,
-        triaged: 30,
-        accepted: 2,
-        pending: 20,
-        resolved: 4,
-        unresolved: 26
-    }
+    var data = {
+        total,
+        newTickets,
+        triaged,
+        accepted,
+        pending,
+        resolved,
+        unresolved,
+    };
 
     var dataArr = [
-        {name:"new", value: data.new},
+        {name:"new", value: data.newTickets},
         {name:"triaged", value: data.triaged},
         {name:"accepted", value: data.accepted},
         {name:"pending", value: data.pending},
@@ -46,8 +47,14 @@ export default function TicketAmountGraph()
         {name:"unresolved", value: data.unresolved},
     ]
 
-    const dataColors = ["#0000ff", "#de3163", "#de3163", "#ff10f0", "#00ff00", "#ff0000"];
-    
+    const colorArr =  [   
+        ticketColorCode.new,
+        ticketColorCode.triaged,
+        ticketColorCode.accepted,
+        ticketColorCode.pending,
+        ticketColorCode.resolved,
+        ticketColorCode.unresolved
+    ];
     
     useEffect(() => {
     
@@ -71,7 +78,7 @@ export default function TicketAmountGraph()
 
         });
     
-    }, []);
+    }, [total]);
 
 
     return (
@@ -104,7 +111,7 @@ export default function TicketAmountGraph()
                     >
                         {
                         dataArr.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={dataColors[index % dataColors.length]} />
+                            <Cell key={`cell-${index}`} fill={ colorArr[index] } />
                         ))
                         }
                     </Pie>
