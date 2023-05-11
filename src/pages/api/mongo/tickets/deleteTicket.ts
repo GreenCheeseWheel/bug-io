@@ -32,7 +32,7 @@ export default async function Handler( req:NextApiRequest , res:NextApiResponse 
     catch(err)
     {
         console.error(err);
-        throw new Error("" + err)
+        throw new Error(`${err}`)
     }
 
 }

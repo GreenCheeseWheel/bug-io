@@ -32,7 +32,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse)
 
         const project = database.collection(mongoCollections.projects).insertOne( 
             {
-                proj_id: objID,
+                proj_id:`${objID}`,
                 proj_title: proj_title,
                 proj_description: proj_description,
                 proj_creator: proj_creator,

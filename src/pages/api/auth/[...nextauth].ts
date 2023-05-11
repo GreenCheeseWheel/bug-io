@@ -7,7 +7,7 @@ export const authOptions:AuthOptions = {
   providers: [
     CredentialsProvider(
       {
-        name: "user name",
+        name: "credentials",
         
         credentials: {
           username: {
@@ -20,16 +20,19 @@ export const authOptions:AuthOptions = {
             type: "password",
             placeholder: "admin",
           },
+          project: {
+            type: "text",
+          }
 
         },
 
         async authorize(credentials, req)
         {
-          const {username, password} = credentials as any;
+          const {username, password, project} = credentials as any;
 
           // Fetch to data base and check if credentials already exist in 
           // the users collection!
-          const res = await fetch("http://localhost:3000/api/mongo/users/userLogin", {
+          const resUserLogin = await fetch("http://localhost:3000/api/mongo/users/userLogin", {
             method: "POST",
             headers: {
               Accept: "application/json, text/plain, */*",
@@ -38,14 +41,17 @@ export const authOptions:AuthOptions = {
             body: JSON.stringify({
               user_name: username,
               user_password: password,
+              user_project: project,
             })
 
           })
           .catch(err => err);
-          
-          const user = await res.json();
 
-          if(res.ok && user != null)
+          
+          const user = await resUserLogin.json();
+
+
+          if(resUserLogin.ok && user != null)
           {
             return user
           }
@@ -61,7 +67,9 @@ export const authOptions:AuthOptions = {
     )
   ],
 
-  
+  pages: {
+    signIn: "/login",
+  },
 
   callbacks: {
     

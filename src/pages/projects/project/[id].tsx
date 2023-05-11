@@ -6,8 +6,6 @@ import { useState } from "react";
 import Navbar from "@/components/navbar/Navbar";
 
 
-// What should the design look like?
-// Check examples of bugzilla, etc
 export default function Project()
 {
     const router = useRouter();
@@ -83,7 +81,7 @@ export default function Project()
         const response = await fetch("http://localhost:3000/api/mongo/deleteProjectByID?id=" + id);
         if(response.ok)
         {
-            router.back();
+            router.push("/");
         }        
 
     }

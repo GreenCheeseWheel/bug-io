@@ -67,7 +67,7 @@ export const getServerSideProps = async (ctx:NextPageContext) =>
   if(!sess)
   {
     return {
-      redirect: {destination: "api/auth/signin", permanent: false}
+      redirect: {destination: "/login", permanent: false}
     }
   }
 

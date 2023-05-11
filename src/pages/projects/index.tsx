@@ -22,6 +22,7 @@ export default function Home()
                     <Link href="/projects/project/create">
                         <Button btnText="Create new project" fontSize="md" bgColor="#ff10f0" width="50" height="25" />
                     </Link>
+
                 </article>
 
                 { reducer.projectArr.map((item) => 
