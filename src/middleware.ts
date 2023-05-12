@@ -12,7 +12,10 @@ export default withAuth(
 
         callbacks: {
             authorized: ({req, token}) => { 
-                return true;
+                if(token)
+                return true
+                else
+                return false
             }
         },
 
@@ -28,4 +31,4 @@ export default withAuth(
 )
 
 
-export const config = { matcher: ["/register"] }
+export const config = { matcher: ["/projects"] }
