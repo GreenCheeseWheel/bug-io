@@ -36,7 +36,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse)
                 proj_title: proj_title,
                 proj_description: proj_description,
                 proj_creator: proj_creator,
-                proj_participants: [proj_participants],
+                proj_participants: [proj_participants,],
                 proj_tickets:[
                     {
                         ticket_id: "0",

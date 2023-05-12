@@ -10,6 +10,7 @@ import projectsArrReducer, {setProjArr} from "@/slices/projects_slice"
 import { NextPageContext } from "next";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const store = configureStore(
   {
@@ -24,14 +25,16 @@ export default function Home(propData:any) {
 
   useEffect(() => {
     
-    var {user_name, user_email,user_role} = propData.userData;
+    var {user_name, user_email,user_role} = propData.userData.user;
+    var {proj_title} = propData.userData.project;
+
     var arrTickets:any = [];
 
     data.projData.forEach((proj: { proj_tickets:any }) => {
       arrTickets = arrTickets.concat(proj.proj_tickets);  
     });
 
-    store.dispatch(signinUser( {name: user_name, email: user_email ,role: user_role} ) );
+    store.dispatch(signinUser( {name: user_name, email: user_email ,role: user_role, proj_title: proj_title} ) );
     store.dispatch(setProjArr(data.projData));
     store.dispatch(updateTickets(arrTickets));
 
@@ -42,7 +45,7 @@ export default function Home(propData:any) {
   return (
     <main>
         <Navbar />
-
+      
         <section className="h-full grow px-3">
           <Dashboard />
         </section>

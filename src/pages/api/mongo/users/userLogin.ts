@@ -1,6 +1,7 @@
 import { mongoPromise } from "@/lib/mongodb";
 import { mongoCollections } from "@/lib/mongo_collections";
 import { NextApiRequest, NextApiResponse } from "next";
+import { use } from "react";
 
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse<any>)
@@ -17,15 +18,19 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse<an
                 user_password
             }
         )
-
         
+            
         const project = await database.collection(mongoCollections.projects).findOne(
             {
                 proj_title: user_project,
-                proj_participants: user_name,
+                proj_participants: {
+                    $in: [user_name],
+                },
             }
         )
+        
             
+
         res.status(200).json( {user, project} );
         
     }

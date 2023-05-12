@@ -30,6 +30,7 @@ export default function Home(props:any)
             redirect: false,
             username: username,
             password: password,
+            project: selectedProject,
             
         });
 
@@ -39,7 +40,7 @@ export default function Home(props:any)
             return;
         }
 
-        alert("Error occ");
+        alert("Error at sign up: " + signinResp?.error);
 
     };
 
@@ -48,7 +49,7 @@ export default function Home(props:any)
 
         
         setProjectList(props.projectResJson);
-        console.error(props.projectResJson)
+        setSelectedProject(props.projectResJson[0].proj_title);
 
     }, [props]);
 
@@ -71,16 +72,27 @@ export default function Home(props:any)
 
                     <input value={username} onChange={(e) => {setUsername(e.currentTarget.value)}} className="text-black border-solid border-[1px] border-[#776677] outline-0 font-semibold caret-[#776677] py-2 indent-2" type="text" placeholder="GreenCheeseWheel" />
                     <input value={password} onChange={(e) => {setPassword(e.currentTarget.value)}} className="text-black border-solid border-[1px] border-[#776677] outline-0 font-semibold caret-[#776677] py-2 indent-2" type="password" placeholder="admin" />
-                    <select value={selectedProject} onChange={(e) => {setSelectedProject(e.currentTarget.value)}} className="text-black outline-0 border-solid border-[1px] border-black">
+                    <select value={selectedProject} onChange={(e) => {console.error(e.currentTarget.value); setSelectedProject(e.target.value) }} className="text-black outline-0 border-solid border-[1px] border-black">
                         {
-                            projectList.map((project) => <option>{project.proj_title}</option>)
+                            projectList.map((project) => <option key={project.proj_id}>{project.proj_title}</option>)
                         }
+
+                        <option>Hola</option>
                     </select>
 
                     <Button btnText="Sign in" bgColor="#3b5998" width="auto" height="auto" />
 
                 </form>
 
+                <div className="flex flex-col gap-1 px-2">
+                    
+                    <div 
+                        className="relative flex flex-row flex-nowrap border-solid border-t-[1px] my-4 border-[#808080] justify-center items-center h-0"
+                        >
+                        <span className="absolute text-center text-black text-sm bg-white">Need an account?</span>
+                    </div>                    
+                    <Button onClick={() => {router.push("/register")}} btnText="Register" bgColor="#3b5998" width="auto" height="auto" />
+                </div>
             </div>
 
         </main >

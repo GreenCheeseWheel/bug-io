@@ -4,7 +4,8 @@ interface user_data {
     name: string,
     email: string,
     role: number,
-    image: string
+    image: string,
+    project: string,
 }
 
 export type {user_data}

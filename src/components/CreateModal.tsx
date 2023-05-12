@@ -2,6 +2,7 @@ import Button from "./Button"
 import {useState, FormEvent} from "react"
 import { useRouter } from "next/router";
 import { store } from "@/pages";
+import { getSession } from "next-auth/react";
 
 
 
@@ -9,11 +10,12 @@ export default function Modal()
 {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const userName = store.getState().userReducer.name;
     const router = useRouter();
 
     const sendData = async (event:FormEvent | null) => {
         const date = new Date().getTime();
+        const userName = store.getState().userReducer.name;
+        console.error(userName);
 
         if(event)
         {   
@@ -32,7 +34,7 @@ export default function Modal()
                         proj_title: title, 
                         proj_description: description,
                         proj_creator: userName,
-                        proj_participants: [userName]
+                        proj_participants: userName
                     })
             
             })
