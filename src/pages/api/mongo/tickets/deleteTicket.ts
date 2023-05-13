@@ -15,7 +15,7 @@ export default async function Handler( req:NextApiRequest , res:NextApiResponse 
 
         const deleteRes = await database.collection(mongoCollections.projects).updateOne(
             {   
-                proj_id: parseInt(proj_id),
+                proj_id: `${proj_id}`,
             },
 
             {

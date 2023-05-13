@@ -2,8 +2,12 @@ import Button from "@/components/Button";
 import TicketList from "@/components/dashboard/TicketList/TicketList";
 import { ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/navbar/Navbar";
+import { getSession} from "next-auth/react";
+import { Session } from "next-auth";
+import roles from "@/user_col_format";
+
 
 
 export default function Project()
@@ -21,6 +25,9 @@ export default function Project()
 
     // Ticket id for deletion
     const [ticketId, setTicketId] = useState(-1);
+
+    //Session check
+    const [session, setSession] = useState<Session>();
 
     const validateField = (ev:ChangeEvent<HTMLInputElement>) => {
         
@@ -64,15 +71,10 @@ export default function Project()
             }
         );
         
-        if( !setTicketRes.ok)
-        {
-            console.error(setTicketRes);
-        }
-
 
         // Reset vals at the end of everything
         
-        router.back();
+        router.push("/");
 
     }
 
@@ -107,10 +109,28 @@ export default function Project()
         router.push("/");
 
     }
+
+    const handleSession = async () => {
+        
+        const sess = await getSession();
+        if(!sess)
+        router.push("/login");
+        else
+        setSession(sess);
+        
+    }
+
     
+    useEffect(() => {
+        
+        handleSession();
+
+    }, [])
 
     return (
         <main>
+            
+
             <Navbar />
             <section className="flex flex-row justify-between w-full py-2 px-3">
                 <input 
@@ -177,9 +197,11 @@ export default function Project()
 
             </section>
 
-            <TicketList ticketNum={numTicketsShown} />
+            <TicketList ticketNum={numTicketsShown} ticketTitleFilter={ticketSearch} />
 
-            <section className="w-full py-3 flex flex-row justify-start">
+            {
+            session?.user.user.user_role == roles.admin &&
+            <section className="w-full py-3 px-2 flex flex-row justify-start">
                 
                 <Button 
                     btnText="Delete project" 
@@ -190,6 +212,8 @@ export default function Project()
                     />
 
             </section>
+            }
+            
         </main>
     )
 

@@ -13,3 +13,4 @@ interface user_schema
 
 export default roles;
 export type {user_schema}
+export {roles}

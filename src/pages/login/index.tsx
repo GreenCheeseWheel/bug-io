@@ -76,8 +76,6 @@ export default function Home(props:any)
                         {
                             projectList.map((project) => <option key={project.proj_id}>{project.proj_title}</option>)
                         }
-
-                        <option>Hola</option>
                     </select>
 
                     <Button btnText="Sign in" bgColor="#3b5998" width="auto" height="auto" />

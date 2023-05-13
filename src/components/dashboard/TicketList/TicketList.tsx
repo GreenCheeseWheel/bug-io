@@ -1,10 +1,15 @@
 import TicketInfo from "./TicketInfo";
-import { ticketColorCode } from "@/ticket-code";
 import { store } from "@/pages";
 import { useEffect, useMemo, useState } from "react";
-import { ticket_schema } from "@/ticket_col_format";
 
-export default function TicketList( {ticketNum}:{ticketNum:number} )
+interface ITicketListFilters {
+
+    ticketTitleFilter?:string,
+    ticketNum:number,
+
+}
+
+export default function TicketList( { ticketTitleFilter, ticketNum }:ITicketListFilters )
 {
     const [ticketData, setTicketData] = useState([{ticket_id: "", ticket_title: "", ticket_description: "", ticket_status: 0}] );
     const [reducer, setReducer] = useState( store.getState().projectsArrReducer );  
@@ -16,14 +21,14 @@ export default function TicketList( {ticketNum}:{ticketNum:number} )
 
     useEffect(() => {
         var ticketArr:any = [];
-        reducer.projectArr.forEach(proj => 
-            {
-                ticketArr = ticketArr.concat(proj.proj_tickets);
 
-            })
+        // Ticker arr is an array of ticket arrays with this. We flatten it and pass it as non-nested
+        ticketArr = reducer.projectArr.map(proj => proj.proj_tickets.filter(ticket => ticket.ticket_title.includes(""+ticketTitleFilter)));        
 
-        setTicketData( ticketArr.slice(0, ticketNum) );
-    }, [reducer, ticketNum])
+        ticketArr = ticketArr.flat(1);
+
+        setTicketData( ticketArr );
+    }, [reducer, ticketNum, ticketTitleFilter])
 
 
     return(

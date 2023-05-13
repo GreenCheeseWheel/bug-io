@@ -1,5 +1,5 @@
-import { error } from "console"
 import {withAuth} from "next-auth/middleware"
+import {roles} from "@/user_col_format"
 
 export default withAuth(
 
@@ -11,16 +11,20 @@ export default withAuth(
 
         callbacks: {
             authorized: ({req, token}) => { 
-                if(token)
-                return true
+                              
+                if(token && token.user.user_role == roles.admin)
+                {
+                    return true
+                }
                 else
-                return false
+                {
+                    return false
+                }
             }
         },
 
         pages: {
             signIn: "/login",
-            error: "/login"
         }
 
         
@@ -29,5 +33,5 @@ export default withAuth(
     
 )
 
+export const config = {matcher: ["/admin/project/create"]}
 
-export const config = { matcher: ["/admin"] }

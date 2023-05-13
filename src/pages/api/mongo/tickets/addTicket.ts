@@ -32,7 +32,7 @@ export default async function handler(req:NextApiRequest , res:NextApiResponse<a
 
         const updateRes = await database.collection(mongoCollections.projects).updateOne(
             {
-                proj_id: parseInt(id) ,
+                proj_id: `${id}` ,
             },
             {
                 $addToSet: {

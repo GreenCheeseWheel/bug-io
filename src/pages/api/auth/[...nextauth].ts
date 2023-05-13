@@ -27,8 +27,6 @@ export const authOptions:AuthOptions = {
             type: "text",
           },
 
-
-
         },
 
         async authorize(credentials, req)
