@@ -5,8 +5,7 @@ export default withAuth(
 
     function middleware(req)
     {
-        console.log("Este es el token de salida!");
-        console.log(req.nextauth);
+        
     },
     {
 
@@ -31,4 +30,4 @@ export default withAuth(
 )
 
 
-export const config = { matcher: ["/projects"] }
+export const config = { matcher: ["/admin"] }

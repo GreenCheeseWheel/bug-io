@@ -10,11 +10,8 @@ import { Session } from "next-auth"
 export default function Home()
 {
     const [reducer, setReducer] = useState(store.getState().projectsArrReducer) ;
-    const [session, setSession] = useState<Session | null>();
-    const [sessionUser, setSessionUser] = useState({
-
-
-    });
+    const [session, setSession] = useState<Session>();
+    
 
     store.subscribe(() => {
         setReducer(store.getState().projectsArrReducer);
@@ -25,10 +22,8 @@ export default function Home()
         try
         {
             const session = await getSession();
-            console.error(session);
-            
-            
-    
+            if(session)
+            setSession(session);
             
         }
         catch(err)
@@ -50,11 +45,13 @@ export default function Home()
         <main>
             <SessionProvider session={session}>
                 <Navbar />
-                <section className="flex flex-col gap-2 h-full grow px-3">
+                <section className="flex flex-col gap-2 h-full grow py-2 px-3">
                     {
-                        
+                    
+                    session?.user.user.user_role == 0 &&
+                    
                     <article className="flex flex-row justify-start py-6">
-                        <Link href="/projects/project/create">
+                        <Link href="/admin/project/create">
                             <Button btnText="Create new project" fontSize="md" bgColor="#ff10f0" width="50" height="25" />
                         </Link>
 

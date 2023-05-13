@@ -39,7 +39,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse)
                 proj_participants: [proj_participants,],
                 proj_tickets:[
                     {
-                        ticket_id: "0",
+                        ticket_id: `${0}`,
                         ticket_title: "Default creation ticket",
                         ticket_description: "...",
                         ticket_status: "4",
