@@ -6,7 +6,7 @@ import {createSlice} from "@reduxjs/toolkit"
 // then store it in state.ticket_arr
 
 const initialState = {
-    ticket_arr: [{proj_id: "0", ticket_title: "", ticket_description: "", ticket_status: 0}],
+    ticket_arr: [{ticket_id: "0" ,ticket_title: "", ticket_description: "", ticket_status: 0}],
     new_tickets: 0, 
     triaged_tickets: 0, 
     accepted_tickets: 0, 
@@ -40,6 +40,7 @@ const ticketSlice = createSlice(
                     if(ticket.ticket_status == 5) unresolvedCount++;
 
                 });
+
 
                 state.new_tickets = newCount;
                 state.triaged_tickets = triagedCount;

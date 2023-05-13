@@ -9,11 +9,12 @@ enum ticket_status
 }
 
 interface ticket_schema {
-    projec_id: string,
+    projec_id?: string,
     ticket_title: string,
     ticket_description:string,
-    ticket_status:ticket_status,
+    ticket_status:ticket_status | string,
 }
+
 
 export type {ticket_schema}
 export default ticket_status

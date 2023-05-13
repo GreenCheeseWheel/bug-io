@@ -1,34 +1,77 @@
 import TicketInfo from "./TicketInfo";
 import { store } from "@/pages";
+import { project_schema } from "@/project_col_format";
+import { getSession } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
 
 interface ITicketListFilters {
 
     ticketTitleFilter?:string,
     ticketNum:number,
+    projectId?:string | string[] | undefined,
 
 }
 
-export default function TicketList( { ticketTitleFilter, ticketNum }:ITicketListFilters )
+export default function TicketList( { ticketTitleFilter, ticketNum, projectId }:ITicketListFilters )
 {
     const [ticketData, setTicketData] = useState([{ticket_id: "", ticket_title: "", ticket_description: "", ticket_status: 0}] );
     const [reducer, setReducer] = useState( store.getState().projectsArrReducer );  
-    
+    const [currentProject, setCurrentProject] = useState<project_schema>();
 
     store.subscribe(() => {
         setReducer(store.getState().projectsArrReducer);
     })
 
+    const getCurrentProject = async () => {
+        if(projectId)
+        {
+            var helperCurrProject = reducer.projectArr.filter(proj => proj.proj_id == projectId).at(0);
+            
+
+            setCurrentProject( helperCurrProject );
+            
+
+        }
+        else
+        {
+            const sess = await getSession();
+
+            if(sess)
+            setCurrentProject(sess.user.project)
+        }
+    }
+
+    useEffect(() => {
+        getCurrentProject();
+    }, [reducer])
+
     useEffect(() => {
         var ticketArr:any = [];
 
         // Ticker arr is an array of ticket arrays with this. We flatten it and pass it as non-nested
-        ticketArr = reducer.projectArr.map(proj => proj.proj_tickets.filter(ticket => ticket.ticket_title.includes(""+ticketTitleFilter)));        
+        if(currentProject && ticketTitleFilter)
+        {
+            ticketArr = currentProject.proj_tickets.filter(ticket => 
+                
+                ticket.ticket_title.toLowerCase().includes( ticketTitleFilter.toLowerCase() )
+                
+            );
 
-        ticketArr = ticketArr.flat(1);
+            setTicketData( ticketArr.slice(0, ticketNum) );
+        }
+        else if(currentProject)
+        {
+            ticketArr = currentProject.proj_tickets;
+            console.log(ticketArr)
+            console.log("Seccion tickets")
 
-        setTicketData( ticketArr );
-    }, [reducer, ticketNum, ticketTitleFilter])
+            setTicketData( ticketArr.slice(0, ticketNum) );
+
+        }
+        
+
+
+    }, [ticketNum, ticketTitleFilter, currentProject])
 
 
     return(

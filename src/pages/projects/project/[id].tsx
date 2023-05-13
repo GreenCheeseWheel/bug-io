@@ -29,6 +29,7 @@ export default function Project()
     //Session check
     const [session, setSession] = useState<Session>();
 
+
     const validateField = (ev:ChangeEvent<HTMLInputElement>) => {
         
         var targetVal = 0;
@@ -197,7 +198,7 @@ export default function Project()
 
             </section>
 
-            <TicketList ticketNum={numTicketsShown} ticketTitleFilter={ticketSearch} />
+            <TicketList projectId={id} ticketNum={numTicketsShown} ticketTitleFilter={ticketSearch} />
 
             {
             session?.user.user.user_role == roles.admin &&

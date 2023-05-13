@@ -54,12 +54,6 @@ export default function Home(propData:any) {
   
 }
 
-function componentDidUpdate(prevProps:any, prevState:any)
-{ 
-  console.log("Update!");
-
-}
-
 
 export const getServerSideProps = async (ctx:NextPageContext) =>
 {
