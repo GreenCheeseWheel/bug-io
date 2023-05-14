@@ -18,12 +18,12 @@ export default function TicketCounter()
     });
 
     useEffect(() => {
+        
         setNewTickets(reducer.new_tickets);
         setTriagedTickets(reducer.triaged_tickets);
         setResolvedTickets(reducer.resolved_tickets);
         setUnresolvedTickets(reducer.unresolved_tickets);
 
-        console.log(reducer);
     }, [reducer]);
 
 

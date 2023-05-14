@@ -30,6 +30,8 @@ const ticketSlice = createSlice(
                 var unresolvedCount= 0;
 
                 state.ticket_arr = action.payload;
+
+                console.log(action.payload);
                 state.ticket_arr.forEach( ticket => {
 
                     if(ticket.ticket_status == 0) newCount++;
@@ -53,7 +55,14 @@ const ticketSlice = createSlice(
 
             clearTickets(state)
             {
-                state = initialState;
+                state.new_tickets = 0;
+                state.triaged_tickets = 0;
+                state.accepted_tickets = 0;
+                state.pending_tickets = 0;
+                state.resolved_tickets = 0;
+                state.unresolved_tickets = 0;
+                state.ticket_arr = [{ticket_id: "0" ,ticket_title: "", ticket_description: "", ticket_status: 0}];
+
             }
         }
 

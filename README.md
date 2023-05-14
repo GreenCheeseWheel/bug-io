@@ -13,4 +13,6 @@ that has the next variables:
 * **NEXT_PUBLIC_MONGODB_URI**: This is the uri of you mongodb database. If you want to know how to set it up correctly visit https://www.mongodb.com/developer/languages/javascript/nextjs-with-mongodb/
 
 # Showcase
-This section will be updated next
+You can check out the most recent video update for the project [here](https://youtu.be/EHaTUUzKHRA)
+
+<iframe width="320" height="180" src="https://youtu.be/EHaTUUzKHRA">

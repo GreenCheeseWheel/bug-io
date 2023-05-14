@@ -27,7 +27,6 @@ export default function TicketList( { ticketTitleFilter, ticketNum, projectId }:
         {
             var helperCurrProject = reducer.projectArr.filter(proj => proj.proj_id == projectId).at(0);
             
-
             setCurrentProject( helperCurrProject );
             
 
@@ -37,12 +36,19 @@ export default function TicketList( { ticketTitleFilter, ticketNum, projectId }:
             const sess = await getSession();
 
             if(sess)
-            setCurrentProject(sess.user.project)
+            {
+                
+                var currProj = reducer.projectArr.filter(proj => proj.proj_participants.includes(sess?.user.user.user_name) ).at(0) ;
+                setCurrentProject(currProj);
+    
+            }
+            
         }
     }
 
     useEffect(() => {
         getCurrentProject();
+
     }, [reducer])
 
     useEffect(() => {
@@ -62,12 +68,11 @@ export default function TicketList( { ticketTitleFilter, ticketNum, projectId }:
         else if(currentProject)
         {
             ticketArr = currentProject.proj_tickets;
-            console.log(ticketArr)
-            console.log("Seccion tickets")
-
             setTicketData( ticketArr.slice(0, ticketNum) );
 
         }
+
+
         
 
 
