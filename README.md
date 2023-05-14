@@ -14,5 +14,3 @@ that has the next variables:
 
 # Showcase
 You can check out the most recent video update for the project [here](https://youtu.be/EHaTUUzKHRA)
-
-<iframe width="320" height="180" src="https://youtu.be/EHaTUUzKHRA">

@@ -38,7 +38,7 @@ export default function TicketList( { ticketTitleFilter, ticketNum, projectId }:
             if(sess)
             {
                 
-                var currProj = reducer.projectArr.filter(proj => proj.proj_participants.includes(sess?.user.user.user_name) ).at(0) ;
+                var currProj = reducer.projectArr.filter(proj => proj.proj_title == sess.user.project.proj_title ).at(0) ;
                 setCurrentProject(currProj);
     
             }
