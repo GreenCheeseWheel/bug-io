@@ -2,7 +2,7 @@ import Dashboard from "@/components/dashboard/Dashboard";
 import Navbar from "@/components/navbar/Navbar";
 
 import {configureStore, combineReducers} from "@reduxjs/toolkit";
-import {SessionProvider, getSession} from "next-auth/react"
+import {getSession} from "next-auth/react"
 import userReducer, {signinUser} from "@/slices/user_slice";
 import ticketReducer, {clearTickets, updateTickets} from "@/slices/tickets_slice"
 import projectsArrReducer, {setProjArr} from "@/slices/projects_slice"

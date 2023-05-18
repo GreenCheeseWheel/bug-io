@@ -20,6 +20,13 @@ export default function Home()
 
     const getSessionHandler = async () => {
         const sess = await getSession();
+        /*
+        const githubSess = await fetch("https://api.github.com/repos/GreenCheeseWheel/bug-io/issues");
+        const resp = await githubSess.json();
+        
+        console.error( resp[0].title );
+        */
+
         if(sess)
         setSession(sess)
         else
